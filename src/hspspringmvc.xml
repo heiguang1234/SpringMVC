@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd">
+<!--     配置自动扫描包 -->
+<context:component-scan base-package="com.hspedu.web"/>
+<!--     配置视图解析器 以及前后缀属性前缀后缀 -->
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/pages/"/>
+    <property name="suffix" value=".jsp"/>
+</bean>
+<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+    <property name="order" value="99"/>
+</bean>
+<bean id="messageSource" class=
+        "org.springframework.context.support.ResourceBundleMessageSource">
+    <!-- 配置国际化文件名字
+        如果你这样配的话，表示messageSource回到 src/i18nXXX.properties去读取错误信息
+     -->
+    <property name="basename" value="i18n"></property>
+</bean>
+<!--     加入两个常规配置 -->
+<!--     支持Springmvc的高级功能 -->
+<mvc:annotation-driven></mvc:annotation-driven>
+<!--     将不能处理的请求交给tomcat -->
+<mvc:default-servlet-handler></mvc:default-servlet-handler>
+</beans>
