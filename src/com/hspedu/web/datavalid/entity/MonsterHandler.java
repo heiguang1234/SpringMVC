@@ -4,6 +4,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
@@ -22,7 +24,7 @@ public class MonsterHandler {
      @Param: 当我们向map添加数据时 会默认存放到request域中
      */
      @RequestMapping(value = "/addMonsterUI")
-    public String addMonsterUI(Map<String,Object> map){
+    public String addMonsterUI(Map<String,Object> map) {
         map.put("monster",new Monster());
         return "data_valid/monster_addUI";
     }
@@ -52,5 +54,11 @@ public class MonsterHandler {
         }
         return "data_valid/success";
 
+    }
+    //取消绑定monster的name
+    @InitBinder
+    public void initBinder(WebDataBinder webDataBinder){
+
+        webDataBinder.setDisallowedFields("name");
     }
 }
